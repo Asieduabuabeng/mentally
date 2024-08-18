@@ -5,33 +5,32 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
-        
-model Councelors{
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  phone String
-  college String @unique
+
+model Councelors {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  phone    String
+  college  String    @unique
   students Patient[]
-  
-}
-model Patient{
-  id Int  @id @default(autoincrement())
-  name String
-  phone String
-  refNumber String?
-  isRead Boolean @default(false)
-  description String
-  residence String
-  college String
-  department String?
-  counceler Councelors @relation(fields: [councelor], references: [email])
-  councelor String
 }
 
+model Patient {
+  id          Int        @id @default(autoincrement())
+  name        String
+  phone       String
+  createdAt   DateTime   @default(now())
+  refNumber   String?
+  isRead      Boolean    @default(false)
+  description String
+  residence   String
+  college     String
+  department  String?
+  counceler   Councelors @relation(fields: [councelor], references: [email])
+  councelor   String
+}
