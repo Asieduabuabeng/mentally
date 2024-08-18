@@ -14,16 +14,16 @@ function validateApiKey(req: NextRequest): boolean {
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
   console.log(origin);
-  
-    if (!validateApiKey(req)) {
-      return new NextResponse(JSON.stringify({ error: "Invalid API key" }), {
-        status: 401,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
-    }
+
+  // if (!validateApiKey(req)) {
+  //   return new NextResponse(JSON.stringify({ error: "Invalid API key" }), {
+  //     status: 401,
+  //     headers: {
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  // }
 
   // Check if the origin is allowed
   if (origin && !allowedOrigins.includes(origin)) {
@@ -58,13 +58,16 @@ export async function POST(req: NextRequest) {
     });
 
     if (!counselor) {
-      return new NextResponse(JSON.stringify({ error: "Counselor not found" }), {
-        status: 404,
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-          "Content-Type": "application/json",
-        },
-      });
+      return new NextResponse(
+        JSON.stringify({ error: "Counselor not found" }),
+        {
+          status: 404,
+          headers: {
+            "Access-Control-Allow-Origin": origin || "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
     console.log(counselor);
     return new NextResponse(JSON.stringify(counselor), {
@@ -76,13 +79,16 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.log(error);
-    return new NextResponse(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: {
-        "Access-Control-Allow-Origin": origin || "*",
-        "Content-Type": "application/json",
-      },
-    });
+    return new NextResponse(
+      JSON.stringify({ error: "Internal server error" }),
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
   }
 }
 
