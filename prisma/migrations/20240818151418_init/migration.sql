@@ -15,6 +15,7 @@ CREATE TABLE "Patient" (
     "name" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "refNumber" TEXT,
+    "isRead" BOOLEAN NOT NULL DEFAULT false,
     "description" TEXT NOT NULL,
     "residence" TEXT NOT NULL,
     "college" TEXT NOT NULL,
